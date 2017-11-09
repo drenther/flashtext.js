@@ -78,7 +78,7 @@ class KeywordProcessor {
 
 		if (keyword && cleanName) {
 			if (!this.caseSensitive) keyword = keyword.toLowerCase();
-			const currentDictRef = this.keywordTrieDict;
+			let currentDictRef = this.keywordTrieDict;
 			keyword.split('').forEach(char => {
 				if (!currentDictRef.get(char)) currentDictRef.set(char, new Map());
 				currentDictRef = currentDictRef.get(char);
@@ -97,7 +97,7 @@ class KeywordProcessor {
 		let status = false;
 		if (keyword) {
 			if (!this.caseSensitive) keyword = keyword.toLowerCase();
-			currentDictRef = this.keywordTrieDict;
+			let currentDictRef = this.keywordTrieDict;
 			const characterTrieList = [];
 			keyword.split('').forEach(char => {
 				if (currentDictRef.has(char)) {
