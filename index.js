@@ -2,7 +2,7 @@
 	A JavaScript (Node) fork of the Python Package @ https://github.com/vi3k6i5/flashtext
 	Tried to keep the API as close as possible
 */
-class KeywordProcessor {
+module.exports = class KeywordProcessor {
 	/*
 		Attrbs - 
 			_keyword (String): Used as key to store keywords in trie dictionary.
@@ -442,4 +442,4 @@ class KeywordProcessor {
 
 		return newSentence;
 	}
-}
+};
