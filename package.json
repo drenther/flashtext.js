@@ -10,7 +10,8 @@
 	"scripts": {
 		"test": "jest --watch",
 		"build": "node_modules/.bin/minify src -d build",
-		"prepare": "npm run build"
+		"prepare": "npm run build",
+		"release": "np"
 	},
 	"repository": {
 		"type": "git",
@@ -32,6 +33,7 @@
 	"devDependencies": {
 		"babel-minify": "^0.2.0",
 		"babel-preset-minify": "^0.2.0",
-		"jest": "^21.2.1"
+		"jest": "^21.2.1",
+		"np": "^2.16.1"
 	}
 }
