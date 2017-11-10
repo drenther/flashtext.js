@@ -1,4 +1,4 @@
-const KeywordProcessor = require('../src/index');
+const KeywordProcessor = require('../build/index');
 
 test('extract keywords test', () => {
 	const processor = new KeywordProcessor();
