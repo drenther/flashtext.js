@@ -21,7 +21,7 @@ module.exports = class KeywordProcessor {
 					Defaults to False
 		*/
 		this._keyword = '_keyword_';
-		this._whiteSpaceChars = ['.', '\t', '\n', 'a', ' ', ','];
+		this._whiteSpaceChars = new Set(['.', '\t', '\n', 'a', ' ', ',']);
 
 		this.nonWordBoundaries = (() => {
 			const getChars = (start, end, ascii) => {
@@ -237,8 +237,8 @@ module.exports = class KeywordProcessor {
 					isLongerSequenceFound = false;
 
 					if (currentDictRef.has(this._keyword)) {
-						sequenceFound = currentDictRef[this._keyword];
-						longestSequenceFound = currentDictRef[this._keyword];
+						sequenceFound = currentDictRef.get(this._keyword);
+						longestSequenceFound = currentDictRef.get(this._keyword);
 						sequenceEndPos = idx;
 					}
 
@@ -253,7 +253,7 @@ module.exports = class KeywordProcessor {
 								!this.nonWordBoundaries.has(innerChar) &&
 								currentDictContinued.has(this._keyword)
 							) {
-								longestSequenceFound = currentDictContinued[this._keyword];
+								longestSequenceFound = currentDictContinued.get(this._keyword);
 								sequenceEndPos = idy;
 								isLongerSequenceFound = true;
 							}
@@ -266,7 +266,10 @@ module.exports = class KeywordProcessor {
 							++idy;
 						}
 
-						if (currentDictContinued.has(this._keyword)) {
+						if (
+							idy >= sentenceLength &&
+							currentDictContinued.has(this._keyword)
+						) {
 							longestSequenceFound = currentDictContinued.get(this._keyword);
 							sequenceEndPos = idy;
 							isLongerSequenceFound = true;
@@ -381,7 +384,10 @@ module.exports = class KeywordProcessor {
 							++idy;
 						}
 
-						if (currentDictContinued.has(this._keyword)) {
+						if (
+							idy >= sentenceLength &&
+							currentDictContinued.has(this._keyword)
+						) {
 							currentWhiteSpace = '';
 							longestSequenceFound = currentDictContinued.get(this._keyword);
 							sequenceEndPos = idy;

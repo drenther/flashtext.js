@@ -1,0 +1,32 @@
+{
+  "name": "flashtext.js",
+  "version": "1.0.0",
+  "description": "A JavaScript Port of the Python package FlashText @ https://github.com/vi3k6i5/flashtext",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drenther/flashtext.js.git"
+  },
+  "keywords": [
+    "flashtext",
+    "search-in-text",
+    "string-search",
+    "nlp",
+    "search-and-replace"
+  ],
+  "author": "Soumyajit Pathak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/drenther/flashtext.js/issues"
+  },
+  "homepage": "https://github.com/drenther/flashtext.js#readme",
+  "devDependencies": {
+    "jest": "^21.2.1"
+  }
+}
