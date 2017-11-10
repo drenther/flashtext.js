@@ -4,7 +4,7 @@
 
 This module can be used to replace keywords in sentences or extract keywords from sentences.
 
-#### Note - This is a quick experimental port. Please post [issues](https://github.com/vi3k6i5/flashtext/issues) for anything that doesn't work or can be improved
+#### Note - This is a quick experimental port. Please post [issues](https://github.com/drenther/flashtext.js/issues) for anything that doesn't work or can be improved
 
 ## Installation
 
@@ -136,6 +136,12 @@ const after = processor.extractKeywords('I love Big Apple/Bay Area.');
 console.log(after);
 // output - []
 ```
+
+## References
+
+The original paper published on [FlashText algorithm](https://arxiv.org/abs/1711.00046)
+
+The article published on [Medium freeCodeCamp](https://medium.freecodecamp.org/regex-was-taking-5-days-flashtext-does-it-in-15-minutes-55f04411025f)
 
 ## License
 
