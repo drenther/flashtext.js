@@ -1,6 +1,6 @@
 {
 	"name": "flashtext.js",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A JavaScript (ES6+ source with zero dependency) Port of the Python package FlashText @ https://github.com/vi3k6i5/flashtext",
 	"main": "build/index.js",
 	"directories": {
