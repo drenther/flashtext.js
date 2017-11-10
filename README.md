@@ -1,6 +1,6 @@
 # Flashtext.js
 
-### JavaScript port of the amazing Python package [flashtext](https://github.com/vi3k6i5/flashtext)
+### JavaScript (ES6+) port of the amazing Python package [flashtext](https://github.com/vi3k6i5/flashtext)
 
 This module can be used to replace keywords in sentences or extract keywords from sentences.
 
