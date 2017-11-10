@@ -228,11 +228,13 @@ class KeywordProcessor {
 		while (idx < sentenceLength) {
 			let char = sentence[idx];
 
+			let sequenceFound, longestSequenceFound, isLongerSequenceFound, idy;
+
 			if (!this.nonWordBoundaries.has(char)) {
 				if (currentDictRef.has(this._keyword) || currentDictRef.has(char)) {
-					let sequenceFound = '';
-					let longestSequenceFound = '';
-					let isLongerSequenceFound = false;
+					sequenceFound = '';
+					longestSequenceFound = '';
+					isLongerSequenceFound = false;
 
 					if (currentDictRef.has(this._keyword)) {
 						sequenceFound = currentDictRef[this._keyword];
@@ -242,7 +244,7 @@ class KeywordProcessor {
 
 					if (currentDictRef.has(char)) {
 						let currentDictContinued = currentDictRef.get(char);
-						var idy = idx + 1;
+						idy = idx + 1;
 
 						while (idy < sentenceLength) {
 							let innerChar = sentence[idy];
@@ -307,5 +309,137 @@ class KeywordProcessor {
 			++idx;
 		}
 		return keywordsExtracted;
+	}
+
+	replaceKeywords(sentence) {
+		/*
+			Args - 
+				sentence (String): Line of text where we will search for keywords
+			Returns -
+				keywordsExtracted (String): Line of text with keywords replaced with their respective cleanNames
+		*/
+		const sentenceLength = sentence.length;
+
+		if (typeof sentence !== 'string' && sentenceLength === 0)
+			return keywordsExtracted;
+		const orgSentence = sentence;
+
+		if (!this.caseSensitive) sentence = sentence.toLowerCase();
+		let newSentence = '';
+
+		let currentWord = '';
+		let currentDictRef = this.keywordTrieDict;
+		let currentWhiteSpace = '';
+		let sequenceEndPos = 0;
+		let idx = 0;
+
+		while (idx < sentenceLength) {
+			let char = sentence[idx];
+			currentWord += orgSentence[idx];
+
+			let sequenceFound, longestSequenceFound, isLongerSequenceFound, idy;
+
+			if (!this.nonWordBoundaries.has(char)) {
+				currentWhiteSpace = char;
+
+				if (currentDictRef.has(this._keyword) || currentDictRef.has(char)) {
+					sequenceFound = '';
+					longestSequenceFound = '';
+					isLongerSequenceFound = false;
+
+					if (currentDictRef.has(this._keyword)) {
+						sequenceFound = currentDictRef.get(this._keyword);
+						longestSequenceFound = currentDictRef.get(this._keyword);
+						sequenceEndPos = idx;
+					}
+
+					if (currentDictRef.has(char)) {
+						let currentDictContinued = currentDictRef.get(char);
+						let currentWordContinued = currentWord;
+						idy = idx + 1;
+
+						while (idy < sentenceLength) {
+							let innerChar = sentence[idy];
+							currentWordContinued += orgSentence[idy];
+
+							if (
+								!this.nonWordBoundaries.has(innerChar) &&
+								currentDictContinued.has(this._keyword)
+							) {
+								currentWhiteSpace = innerChar;
+								longestSequenceFound = currentDictContinued.get(this._keyword);
+								sequenceEndPos = idy;
+								isLongerSequenceFound = true;
+							}
+
+							if (currentDictContinued.has(innerChar)) {
+								currentDictContinued = currentDictContinued.get(innerChar);
+							} else {
+								break;
+							}
+
+							++idy;
+						}
+
+						if (currentDictContinued.has(this._keyword)) {
+							currentWhiteSpace = '';
+							longestSequenceFound = currentDictContinued.get(this._keyword);
+							sequenceEndPos = idy;
+							isLongerSequenceFound = true;
+						}
+
+						if (isLongerSequenceFound) {
+							idx = sequenceEndPos;
+							currentWord = currentWordContinued;
+						}
+					}
+					currentDictRef = this.keywordTrieDict;
+
+					if (longestSequenceFound) {
+						newSentence += longestSequenceFound + currentWhiteSpace;
+						currentWord = '';
+						currentWhiteSpace = '';
+					} else {
+						newSentence += currentWord;
+						currentWord = '';
+						currentWhiteSpace = '';
+					}
+				} else {
+					currentDictRef = this.keywordTrieDict;
+					newSentence += currentWord;
+					currentWord = '';
+					currentWhiteSpace = '';
+				}
+			} else if (currentDictRef.has(char)) {
+				currentDictRef = currentDictRef.get(char);
+			} else {
+				currentDictRef = this.keywordTrieDict;
+				idy = idx + 1;
+
+				while (idy < sentenceLength) {
+					char = sentence[idy];
+					currentWord += orgSentence[idy];
+
+					if (!this.nonWordBoundaries.has(char)) break;
+
+					++idy;
+				}
+				idx = idy;
+				newSentence += currentWord;
+				currentWord = '';
+				currentWhiteSpace = '';
+			}
+
+			if (idx + 1 >= sentenceLength) {
+				if (currentDictRef.has(this._keyword)) {
+					sequenceFound = currentDictRef.get(this._keyword);
+					newSentence += sequenceFound;
+				}
+			}
+
+			++idx;
+		}
+
+		return newSentence;
 	}
 }
