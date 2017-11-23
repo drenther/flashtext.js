@@ -21,7 +21,7 @@ module.exports = class KeywordProcessor {
 					Defaults to False
 		*/
 		this._keyword = '_keyword_';
-		this._whiteSpaceChars = new Set(['.', '\t', '\n', 'a', ' ', ',']);
+		// this._whiteSpaceChars = new Set(['.', '\t', '\n', '\a', ' ', ',']); // not yet implemented
 
 		this.nonWordBoundaries = (() => {
 			const getChars = (start, end, ascii) => {
