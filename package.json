@@ -1,8 +1,7 @@
 {
 	"name": "flashtext.js",
 	"version": "1.0.4",
-	"description":
-		"A JavaScript (ES6+ source with zero dependency) Port of the Python package FlashText @ https://github.com/vi3k6i5/flashtext",
+	"description": "A JavaSctipt Port of the Python package FlashText",
 	"main": "build/index.js",
 	"directories": {
 		"test": "test"
@@ -11,7 +10,6 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"build": "node_modules/.bin/minify src -d build",
-		"debug": "node --inspect --debug-brk ./node_modules/webpack/bin/webpack.js",
 		"release": "np"
 	},
 	"repository": {
