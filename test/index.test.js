@@ -98,3 +98,18 @@ test('add characters as part of word characters', () => {
 	const after = processor.extractKeywords('I love Big Apple/Bay Area.');
 	expect(after).toEqual([]);
 });
+
+test('recreating a bug related to sentence ending with a half matching keyword', () => {
+	const processor = new KeywordProcessor();
+
+	processor.addKeyword('Appl1', 'app_1');
+	processor.addKeyword('Appl2', 'app_2');
+
+	expect(processor.replaceKeywords('appl1')).toEqual('app_1');
+	expect(processor.replaceKeywords('appl2')).toBe('app_2');
+
+	expect(processor.replaceKeywords('app')).toEqual('app');
+	expect(processor.replaceKeywords('I am using an App')).toEqual(
+		'I am using an App'
+	);
+});

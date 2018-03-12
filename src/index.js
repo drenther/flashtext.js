@@ -440,6 +440,8 @@ module.exports = class KeywordProcessor {
 				if (currentDictRef.has(this._keyword)) {
 					sequenceFound = currentDictRef.get(this._keyword);
 					newSentence += sequenceFound;
+				} else {
+					newSentence += currentWord;
 				}
 			}
 
