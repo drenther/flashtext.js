@@ -1,6 +1,6 @@
 {
 	"name": "flashtext.js",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "A JavaSctipt Port of the Python package FlashText",
 	"main": "build/index.js",
 	"directories": {
