@@ -1,5 +1,9 @@
 # Flashtext.js
 
+[![Build Status](https://travis-ci.org/drenther/flashtext.js.svg?branch=master)](https://travis-ci.org/drenther/flashtext.js)
+
+[![Coverage Status](https://coveralls.io/repos/github/drenther/flashtext.js/badge.svg?branch=master)](https://coveralls.io/github/drenther/flashtext.js?branch=master)
+
 ### JavaScript (ES6+ source and zero dependencies) port of the amazing Python package [flashtext](https://github.com/vi3k6i5/flashtext)
 
 This module can be used to replace keywords in sentences or extract keywords from sentences.
@@ -13,7 +17,6 @@ This module can be used to replace keywords in sentences or extract keywords fro
 ```
 
 #### or
-
 
 ```javascript
 	$ yarn add flashtext.js
