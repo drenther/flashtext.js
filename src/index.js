@@ -132,12 +132,10 @@ module.exports = class KeywordProcessor {
 		for (let [cleanName, keywords] of Object.entries(obj)) {
 			if (typeof cleanName !== 'string' || keywords.constructor !== Array) {
 				throw 'Please structure the Object as suggested for using addKeywordsFromObject';
-				return;
 			}
 			keywords.forEach(keyword => {
 				if (typeof keyword !== 'string') {
 					throw 'Keywords must be of String type';
-					return;
 				}
 				this.addKeyword(keyword, cleanName);
 			});
@@ -158,12 +156,10 @@ module.exports = class KeywordProcessor {
 		for (let [cleanName, keywords] of Object.entries(obj)) {
 			if (typeof cleanName !== 'string' || keywords.constructor !== Array) {
 				throw 'Please structure the Object as suggested for using removeKeywordsFromObject';
-				return;
 			}
 			keywords.forEach(keyword => {
 				if (typeof keyword !== 'string') {
 					throw 'Keywords must be of String type';
-					return;
 				}
 				this.removeKeyword(keyword);
 			});
@@ -177,12 +173,10 @@ module.exports = class KeywordProcessor {
 		*/
 		if (keywords.constructor !== Array) {
 			throw 'Please structure the Object as suggested for using removeKeywordsFromObject';
-			return;
 		}
 		keywords.forEach(keyword => {
 			if (typeof keyword !== 'string') {
 				throw 'Keywords must be of String type';
-				return;
 			}
 			this.addKeyword(keyword);
 		});
@@ -195,12 +189,10 @@ module.exports = class KeywordProcessor {
 		*/
 		if (keywords.constructor !== Array) {
 			throw 'Please structure the Object as suggested for using removeKeywordsFromObject';
-			return;
 		}
 		keywords.forEach(keyword => {
 			if (typeof keyword !== 'string') {
 				throw 'Keywords must be of String type';
-				return;
 			}
 			this.removeKeyword(keyword);
 		});
@@ -323,8 +315,7 @@ module.exports = class KeywordProcessor {
 		*/
 		const sentenceLength = sentence.length;
 
-		if (typeof sentence !== 'string' && sentenceLength === 0)
-			return keywordsExtracted;
+		if (typeof sentence !== 'string' && sentenceLength === 0) return sentence;
 		const orgSentence = sentence;
 
 		if (!this.caseSensitive) sentence = sentence.toLowerCase();
