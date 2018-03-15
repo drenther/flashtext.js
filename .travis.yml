@@ -6,3 +6,5 @@ install:
   "npm install"
 script:
   "npm test"
+after_script:
+  "npm install coveralls && cat ./coverage/lcov.info | coveralls"
