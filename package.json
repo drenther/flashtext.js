@@ -9,6 +9,7 @@
 	"scripts": {
 		"test": "jest",
 		"test:watch": "jest --watch",
+		"coverage": "node_modules/.bin/jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
 		"build": "node_modules/.bin/minify src -d build",
 		"release": "np"
 	},
@@ -32,7 +33,9 @@
 	"devDependencies": {
 		"babel-minify": "^0.2.0",
 		"babel-preset-minify": "^0.2.0",
+		"coveralls": "^3.0.0",
 		"jest": "^21.2.1",
 		"np": "^2.16.1"
-	}
+	},
+	"dependencies": {}
 }
