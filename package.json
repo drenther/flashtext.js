@@ -34,6 +34,8 @@
 		"babel-minify": "^0.2.0",
 		"babel-preset-minify": "^0.2.0",
 		"coveralls": "^3.0.0",
+		"eslint-plugin-jest": "^21.15.1",
+		"eslint-plugin-prettier": "^2.6.0",
 		"jest": "^21.2.1",
 		"np": "^2.16.1"
 	},
