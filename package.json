@@ -33,9 +33,9 @@
 	"devDependencies": {
 		"babel-minify": "^0.2.0",
 		"babel-preset-minify": "^0.2.0",
-		"coveralls": "^3.0.0",
+		"coveralls": "^3.0.1",
 		"jest": "^21.2.1",
-		"np": "^2.16.1"
+		"np": "^2.20.1"
 	},
 	"dependencies": {}
 }
