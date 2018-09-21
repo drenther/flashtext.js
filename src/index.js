@@ -21,7 +21,6 @@ module.exports = class KeywordProcessor {
 					Defaults to False
 		*/
 		this._keyword = '_keyword_';
-		// this._whiteSpaceChars = new Set(['.', '\t', '\n', '\a', ' ', ',']); // not yet implemented
 
 		this.nonWordBoundaries = (() => {
 			const getChars = (start, end, ascii) => {
@@ -31,16 +30,49 @@ module.exports = class KeywordProcessor {
 				}
 				return temp;
 			};
-			return new Set([
-				...getChars(0, 9),
-				...getChars(65, 90, true),
-				...getChars(97, 122, true),
-				'_',
-			]);
+			return new Set([...getChars(0, 9), ...getChars(65, 90, true), ...getChars(97, 122, true), '_']);
 		})();
 
 		this.keywordTrieDict = new Map();
 		this.caseSensitive = caseSensitive;
+		this.termsInTrie = 0;
+	}
+
+	size() {
+		/*
+			Returns:
+				size (Number): Count of number of distince terms in trie dictionary
+		*/
+		return self.termsInTrie;
+	}
+
+	contains(word) {
+		/*
+			Args - 
+				word (String): word that you want to check
+			Returns -
+				status (Boolean): true if word is present in keywordTrieDict otherwise false
+		*/
+		let chars;
+		if (!this.caseSensitive) {
+			chars = [...word.toLowerCase()];
+		} else {
+			chars = [...word];
+		}
+
+		let currentDict = this.keywordTrieDict;
+		let lengthCovered = 0;
+		
+		chars.forEach(char => {
+			if (currentDict.has(char)) {
+				currentDict = currentDict.get(char);
+				lenCovered++;
+			} else {
+				break;
+			}
+		})
+
+		return currentDict.has(this._keyword) && len_covered === word.length;
 	}
 
 	setNonWordBoundaries(charsArray) {
@@ -208,8 +240,7 @@ module.exports = class KeywordProcessor {
 		const keywordsExtracted = [];
 		const sentenceLength = sentence.length;
 
-		if (typeof sentence !== 'string' && sentenceLength === 0)
-			return keywordsExtracted;
+		if (typeof sentence !== 'string' && sentenceLength === 0) return keywordsExtracted;
 
 		if (!this.caseSensitive) sentence = sentence.toLowerCase();
 
@@ -241,10 +272,7 @@ module.exports = class KeywordProcessor {
 						while (idy < sentenceLength) {
 							let innerChar = sentence[idy];
 
-							if (
-								!this.nonWordBoundaries.has(innerChar) &&
-								currentDictContinued.has(this._keyword)
-							) {
+							if (!this.nonWordBoundaries.has(innerChar) && currentDictContinued.has(this._keyword)) {
 								longestSequenceFound = currentDictContinued.get(this._keyword);
 								sequenceEndPos = idy;
 								isLongerSequenceFound = true;
@@ -258,10 +286,7 @@ module.exports = class KeywordProcessor {
 							++idy;
 						}
 
-						if (
-							idy >= sentenceLength &&
-							currentDictContinued.has(this._keyword)
-						) {
+						if (idy >= sentenceLength && currentDictContinued.has(this._keyword)) {
 							longestSequenceFound = currentDictContinued.get(this._keyword);
 							sequenceEndPos = idy;
 							isLongerSequenceFound = true;
@@ -356,10 +381,7 @@ module.exports = class KeywordProcessor {
 							let innerChar = sentence[idy];
 							currentWordContinued += orgSentence[idy];
 
-							if (
-								!this.nonWordBoundaries.has(innerChar) &&
-								currentDictContinued.has(this._keyword)
-							) {
+							if (!this.nonWordBoundaries.has(innerChar) && currentDictContinued.has(this._keyword)) {
 								currentWhiteSpace = innerChar;
 								longestSequenceFound = currentDictContinued.get(this._keyword);
 								sequenceEndPos = idy;
@@ -375,10 +397,7 @@ module.exports = class KeywordProcessor {
 							++idy;
 						}
 
-						if (
-							idy >= sentenceLength &&
-							currentDictContinued.has(this._keyword)
-						) {
+						if (idy >= sentenceLength && currentDictContinued.has(this._keyword)) {
 							currentWhiteSpace = '';
 							longestSequenceFound = currentDictContinued.get(this._keyword);
 							sequenceEndPos = idy;
